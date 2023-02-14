@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class JsonReader : MonoBehaviour
@@ -14,9 +16,13 @@ public class JsonReader : MonoBehaviour
     }
 
     public static String LoadConfigJson()
-    {
-        var jsonTextFile = Resources.Load<TextAsset>("levelConfig");
+    {   
+        string filePath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/')) + "/levelConfig.json";
 
-        return jsonTextFile.text;
+        StreamReader reader = new StreamReader(filePath);
+        var jsonText = reader.ReadToEnd();
+        reader.Close();
+
+        return jsonText;
     }
 }
