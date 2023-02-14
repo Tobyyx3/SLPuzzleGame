@@ -1,4 +1,5 @@
 using System;
+using System.IO.IsolatedStorage;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -28,25 +29,28 @@ public class PlayerController : MonoBehaviour
     {
     }
 
-    public void Walk()
+    public void Walk(Int32 steps)
     {
-        switch (FacingDirection)
+        for (int i = 0; i < steps - 1; i++)
         {
-            case CurrentDirection.North:
-                gameObject.transform.position += new Vector3(0, 1.5f);
-                break;
-            case CurrentDirection.East:
-                gameObject.transform.position += new Vector3(1.5f, 0);
-                break;
-            case CurrentDirection.South:
-                gameObject.transform.position += new Vector3(0, -1.5f);
-                break;
-            case CurrentDirection.West:
-                gameObject.transform.position += new Vector3(-1.5f, 0);
-                break;
-            default:
-                Debug.LogError("Error while walking.");
-                break;
+            switch (FacingDirection)
+            {
+                case CurrentDirection.North:
+                    gameObject.transform.position += new Vector3(0, 1.5f);
+                    break;
+                case CurrentDirection.East:
+                    gameObject.transform.position += new Vector3(1.5f, 0);
+                    break;
+                case CurrentDirection.South:
+                    gameObject.transform.position += new Vector3(0, -1.5f);
+                    break;
+                case CurrentDirection.West:
+                    gameObject.transform.position += new Vector3(-1.5f, 0);
+                    break;
+                default:
+                    Debug.LogError("Error while walking.");
+                    break;
+            }
         }
     }
 

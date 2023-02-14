@@ -15,7 +15,7 @@ public class ButtonManager : MonoBehaviour
 
     public void Walk()
     {
-        _playerController.Walk(PlayerController.Direction.Forward);
+        _playerController.Walk(2);
     }
 
     public void Rotate()
