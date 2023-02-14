@@ -15,14 +15,7 @@ public class ButtonManager : MonoBehaviour
 
     public void Walk()
     {
-        if (WalkDropdown.value == 0)
-        {
-            _playerController.Walk(PlayerController.Direction.Forward);
-        }
-        else
-        {
-            _playerController.Walk(PlayerController.Direction.Backward);
-        }
+        _playerController.Walk(PlayerController.Direction.Forward);
     }
 
     public void Rotate()

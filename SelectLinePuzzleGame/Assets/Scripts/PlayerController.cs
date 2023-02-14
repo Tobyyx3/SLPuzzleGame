@@ -1,18 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum Direction
-    {
-        Forward,
-        Backward
-    }
-
     public enum Rotation
     {
         Right,
@@ -38,32 +28,25 @@ public class PlayerController : MonoBehaviour
     {
     }
 
-    public void Walk(Direction direction)
+    public void Walk()
     {
-        if (direction == Direction.Forward)
+        switch (FacingDirection)
         {
-            switch (FacingDirection)
-            {
-                case CurrentDirection.North:
-                    gameObject.transform.position += new Vector3(0, 1.5f);
-                    break;
-                case CurrentDirection.East:
-                    gameObject.transform.position += new Vector3(1.5f, 0);
-                    break;
-                case CurrentDirection.South:
-                    gameObject.transform.position += new Vector3(0, -1.5f);
-                    break;
-                case CurrentDirection.West:
-                    gameObject.transform.position += new Vector3(-1.5f, 0);
-                    break;
-                default:
-                    Debug.Log("Error while walking");
-                    break;
-            }
-        }
-        else
-        {
-            gameObject.transform.position -= new Vector3(0, 1);
+            case CurrentDirection.North:
+                gameObject.transform.position += new Vector3(0, 1.5f);
+                break;
+            case CurrentDirection.East:
+                gameObject.transform.position += new Vector3(1.5f, 0);
+                break;
+            case CurrentDirection.South:
+                gameObject.transform.position += new Vector3(0, -1.5f);
+                break;
+            case CurrentDirection.West:
+                gameObject.transform.position += new Vector3(-1.5f, 0);
+                break;
+            default:
+                Debug.LogError("Error while walking.");
+                break;
         }
     }
 
