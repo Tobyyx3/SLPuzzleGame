@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public Image image;
+    public Image DraggedItem;
     [HideInInspector] public Transform parentAfterDrag;
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Begin drag");
+        Debug.Log("Start Drag");
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
-        image.raycastTarget = false;
+        DraggedItem.raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -24,8 +24,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("End drag");
+        Debug.Log("End Drag");
         transform.SetParent(parentAfterDrag);
-        image.raycastTarget = true;
+        DraggedItem.raycastTarget = true;
     }
 }

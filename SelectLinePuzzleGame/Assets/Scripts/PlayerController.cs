@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System;
+using System.Collections;
+using System.IO.IsolatedStorage;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum Direction
-    {
-        Forward,
-        Backward
-    }
-
+    public CurrentDirection FacingDirection = CurrentDirection.North;
     public enum Rotation
     {
         Right,
@@ -27,7 +20,6 @@ public class PlayerController : MonoBehaviour
         West
     }
 
-    public CurrentDirection FacingDirection = CurrentDirection.North;
 
     void Start()
     {
@@ -38,35 +30,39 @@ public class PlayerController : MonoBehaviour
     {
     }
 
-    public void Walk(Direction direction)
+    public void Walk(Int32 steps)
     {
-        if (direction == Direction.Forward)
+        for (int i = 0; i < steps; i++)
         {
-            switch (FacingDirection)
-            {
-                case CurrentDirection.North:
-                    gameObject.transform.position += new Vector3(0, 1.5f);
-                    break;
-                case CurrentDirection.East:
-                    gameObject.transform.position += new Vector3(1.5f, 0);
-                    break;
-                case CurrentDirection.South:
-                    gameObject.transform.position += new Vector3(0, -1.5f);
-                    break;
-                case CurrentDirection.West:
-                    gameObject.transform.position += new Vector3(-1.5f, 0);
-                    break;
-                default:
-                    Debug.Log("Error while walking");
-                    break;
-            }
-        }
-        else
-        {
-            gameObject.transform.position -= new Vector3(0, 1);
+            StartCoroutine(ChooseDirection()); //TODO Zeitverzögerung nach einem Schritt
         }
     }
 
+    private IEnumerator ChooseDirection()
+    {
+        switch (FacingDirection)
+        {
+            case CurrentDirection.North:
+                gameObject.transform.position += new Vector3(0, 1.5f);
+                break;
+            case CurrentDirection.East:
+                gameObject.transform.position += new Vector3(1.5f, 0);
+                break;
+            case CurrentDirection.South:
+                gameObject.transform.position += new Vector3(0, -1.5f);
+                break;
+            case CurrentDirection.West:
+                gameObject.transform.position += new Vector3(-1.5f, 0);
+                break;
+            default:
+                Debug.LogError("Error while walking.");
+                break;
+        }
+
+        yield return new WaitForSeconds(1);
+    }
+
+    //TODO Zeitverzögerung nach einer Rotation
     public void Rotate(Rotation rotation)
     {
         if (rotation == Rotation.Right)
