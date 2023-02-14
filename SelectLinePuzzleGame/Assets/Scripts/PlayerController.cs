@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public void Walk(Int32 steps)
     {
-        for (int i = 0; i < steps - 1; i++)
+        for (int i = 0; i < steps; i++)
         {
             switch (FacingDirection)
             {
