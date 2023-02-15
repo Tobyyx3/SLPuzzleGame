@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
-using System.IO.IsolatedStorage;
-using System.Threading;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public CurrentDirection FacingDirection = CurrentDirection.North;
+
     public enum Rotation
     {
         Right,
@@ -21,6 +20,8 @@ public class PlayerController : MonoBehaviour
         West
     }
 
+    private float _waitingDelay = 0.5f;
+
 
     void Start()
     {
@@ -31,9 +32,9 @@ public class PlayerController : MonoBehaviour
     {
     }
 
-    public void Walk(Int32 steps)
+    public void Walk(Int32 repititions)
     {
-        StartCoroutine(ChooseDirection(steps));
+        StartCoroutine(ChooseDirection(repititions));
     }
 
     private IEnumerator ChooseDirection(Int32 repititions)
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
                     break;
             }
 
-            yield return new WaitForSecondsRealtime(1);
+            yield return new WaitForSecondsRealtime(_waitingDelay);
         }
     }
 
@@ -92,7 +93,8 @@ public class PlayerController : MonoBehaviour
                     FacingDirection += 4;
                 }
             }
-            yield return new WaitForSeconds(1);
+
+            yield return new WaitForSeconds(_waitingDelay);
         }
     }
 }
