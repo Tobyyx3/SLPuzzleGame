@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
 
-public class ButtonManager : MonoBehaviour
+public class ProgrammingManager : MonoBehaviour
 {
     public TMP_Dropdown RotateDropdown;
     public TMP_InputField RepeatLoopInput;
@@ -19,7 +19,7 @@ public class ButtonManager : MonoBehaviour
         _playerController.Walk(1);
     }
 
-    public void Walk(Int32 repetitions)
+    private void Walk(Int32 repetitions)
     {
         _playerController.Walk(repetitions);
     }
@@ -28,20 +28,17 @@ public class ButtonManager : MonoBehaviour
     {
         if (RotateDropdown.value == 0)
         {
-            _playerController.Rotate(PlayerController.Rotation.Right);
+            _playerController.Rotate(PlayerController.Rotation.Right, 1);
         }
         else
         {
-            _playerController.Rotate(PlayerController.Rotation.Left);
+            _playerController.Rotate(PlayerController.Rotation.Left, 1);
         }
     }
 
-    public void Rotate(Int32 repetitions, PlayerController.Rotation rotation)
+    private void Rotate(PlayerController.Rotation rotation, Int32 repetitions)
     {
-        for (int i = 0; i < repetitions; i++)
-        {
-            _playerController.Rotate(rotation);
-        }
+        _playerController.Rotate(rotation, repetitions);
     }
 
     public void RepeatLoop()
@@ -50,6 +47,7 @@ public class ButtonManager : MonoBehaviour
 
         var repeatModule = RepeatLoopInput.transform.parent.gameObject;
 
+        
         foreach (var child in repeatModule.GetComponentsInChildren<Transform>())
         {
             switch (child.name)
@@ -67,16 +65,16 @@ public class ButtonManager : MonoBehaviour
     }
 
     private void RotateRepetition(Int32 repetitions, Transform child)
-    {
+    { 
         var tmpDropdown = child.GetComponentInChildren<TMP_Dropdown>();
 
         if (tmpDropdown.value == 0)
         {
-            Rotate(repetitions, PlayerController.Rotation.Right);
+            Rotate(PlayerController.Rotation.Right, repetitions);
         }
         else
         {
-            Rotate(repetitions, PlayerController.Rotation.Left);
+            Rotate(PlayerController.Rotation.Left, repetitions);
         }
     }
 }

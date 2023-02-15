@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO.IsolatedStorage;
+using System.Threading;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -32,58 +33,66 @@ public class PlayerController : MonoBehaviour
 
     public void Walk(Int32 steps)
     {
-        for (int i = 0; i < steps; i++)
+        StartCoroutine(ChooseDirection(steps));
+    }
+
+    private IEnumerator ChooseDirection(Int32 repititions)
+    {
+        for (int i = 0; i < repititions; i++)
         {
-            StartCoroutine(ChooseDirection()); //TODO Zeitverzögerung nach einem Schritt
+            switch (FacingDirection)
+            {
+                case CurrentDirection.North:
+                    gameObject.transform.position += new Vector3(0, 1.5f);
+                    break;
+                case CurrentDirection.East:
+                    gameObject.transform.position += new Vector3(1.5f, 0);
+                    break;
+                case CurrentDirection.South:
+                    gameObject.transform.position += new Vector3(0, -1.5f);
+                    break;
+                case CurrentDirection.West:
+                    gameObject.transform.position += new Vector3(-1.5f, 0);
+                    break;
+                default:
+                    Debug.LogError("Error while walking.");
+                    break;
+            }
+
+            yield return new WaitForSecondsRealtime(1);
         }
     }
 
-    private IEnumerator ChooseDirection()
+    public void Rotate(Rotation rotation, Int32 repititions)
     {
-        switch (FacingDirection)
-        {
-            case CurrentDirection.North:
-                gameObject.transform.position += new Vector3(0, 1.5f);
-                break;
-            case CurrentDirection.East:
-                gameObject.transform.position += new Vector3(1.5f, 0);
-                break;
-            case CurrentDirection.South:
-                gameObject.transform.position += new Vector3(0, -1.5f);
-                break;
-            case CurrentDirection.West:
-                gameObject.transform.position += new Vector3(-1.5f, 0);
-                break;
-            default:
-                Debug.LogError("Error while walking.");
-                break;
-        }
-
-        yield return new WaitForSeconds(1);
+        StartCoroutine(DelayRotation(rotation, repititions));
     }
 
-    //TODO Zeitverzögerung nach einer Rotation
-    public void Rotate(Rotation rotation)
+    private IEnumerator DelayRotation(Rotation rotation, Int32 repititions)
     {
-        if (rotation == Rotation.Right)
+        for (int i = 0; i < repititions; i++)
         {
-            gameObject.transform.Rotate(0, 0, -90f);
-            FacingDirection++;
-
-            if ((Int32)FacingDirection > 3)
+            if (rotation == Rotation.Right)
             {
-                FacingDirection = 0;
-            }
-        }
-        else
-        {
-            gameObject.transform.Rotate(0, 0, 90f);
-            FacingDirection--;
+                gameObject.transform.Rotate(0, 0, -90f);
+                FacingDirection++;
 
-            if ((Int32)FacingDirection < 0)
-            {
-                FacingDirection += 4;
+                if ((Int32)FacingDirection > 3)
+                {
+                    FacingDirection = 0;
+                }
             }
+            else
+            {
+                gameObject.transform.Rotate(0, 0, 90f);
+                FacingDirection--;
+
+                if ((Int32)FacingDirection < 0)
+                {
+                    FacingDirection += 4;
+                }
+            }
+            yield return new WaitForSeconds(1);
         }
     }
 }
