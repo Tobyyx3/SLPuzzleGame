@@ -9,7 +9,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Image DraggedItem;
     [HideInInspector] public Transform parentAfterDrag;
 
-    [Header("All Raycasting Objects (Rotate)")]
+    [Header("All Raycasting Objects for Rotate")]
     public TMP_Text RotateText;
     public Image RotateDropdown;
     public TMP_Text Label;
@@ -22,6 +22,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Image Scrollbar;
     public Image Handle;
 
+    [Header("All Raycasting Objects for Repeat")]
+    public TMP_Text RepeatLoopText;
+    public Image RepeatLoopInput;
+    public TMP_Text Text;
+
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
@@ -30,13 +35,15 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetAsLastSibling();
         DraggedItem.raycastTarget = false;
 
-        // TODO: Alle RaycastTarget Checkboxen der Dropdowns false setzen
         if (RotateText != null)
         {
             DropdownRaycastTarget(false);
         }
 
-        // TODO: RaycastTarget Checkbox der Inputs false setzen
+        if (RepeatLoopText != null)
+        {
+            InputRaycastTarget(false);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -48,13 +55,16 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         transform.SetParent(parentAfterDrag);
         DraggedItem.raycastTarget = true;
-        // TODO: Alle RaycastTarget Checkboxen der Dropdowns true setzen
+
         if (RotateText != null)
         {
             DropdownRaycastTarget(true);
         }
 
-        // TODO: RaycastTarget Checkbox der Inputs true setzen
+        if (RepeatLoopText != null)
+        {
+            InputRaycastTarget(true);
+        }
     }
 
     private void DropdownRaycastTarget(Boolean booleanValue)
@@ -70,5 +80,12 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         ItemLabel.raycastTarget = booleanValue;
         Scrollbar.raycastTarget = booleanValue;
         Handle.raycastTarget = booleanValue;
+    }
+
+    private void InputRaycastTarget(Boolean booleanValue)
+    {
+        RepeatLoopInput.raycastTarget = booleanValue;
+        RepeatLoopText.raycastTarget = booleanValue;
+        Text.raycastTarget = booleanValue;
     }
 }
