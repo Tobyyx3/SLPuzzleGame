@@ -12,9 +12,8 @@ public class ProgrammingManager : MonoBehaviour
     public TMP_Dropdown RotateDropdown;
     public TMP_InputField RepeatLoopInput;
 
-    public Transform ExecutionSlot;
-
-    [SerializeField] private PlayerController _playerController;
+    [SerializeField] 
+    private PlayerController _playerController;
 
     public void Walk()
     {
@@ -80,23 +79,5 @@ public class ProgrammingManager : MonoBehaviour
         }
     }
 
-    public void ExecuteInstructions()
-    {
-        foreach (Transform instruction  in ExecutionSlot)
-        {
-            switch (instruction.name)
-            {
-                case "WalkItem":
-                    Walk();
-                    break;
-                case "RotateItem":
-                    Rotate(instruction.GetComponentInChildren<TMP_Dropdown>());
-                    break;
-                case "RepeatLoopItem":
-                    // TODO: Anweisung unter GameObj andocken und hier auswerten
-                default:
-                    break;
-            }
-        }
-    }
+
 }
