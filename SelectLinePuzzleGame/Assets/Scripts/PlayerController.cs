@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
 
     private float _waitingDelay = 0.5f;
 
-
     void Start()
     {
         FacingDirection = CurrentDirection.North;
