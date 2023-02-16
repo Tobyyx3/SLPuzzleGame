@@ -24,15 +24,17 @@ public class ExecuteInstructionsScript : MonoBehaviour
         {
             switch (instruction.name)
             {
-                case "WalkItem":
+                case String a when a.Contains("WalkItem"):
                     _programmingManager.Walk();
                     break;
-                case "RotateItem":
+                case String b when b.Contains("RotateItem"):
                     _programmingManager.Rotate(instruction.GetComponentInChildren<TMP_Dropdown>());
                     break;
-                case "RepeatLoopItem":
-                // TODO: Anweisung unter GameObj andocken und hier auswerten
+                case String c when c.Contains("RepeatLoopItem"):
+                    // TODO: Anweisung unter GameObj andocken und hier auswerten
+                    break;
                 default:
+                    Debug.LogError("Keine gültige Anweisung in 'ExecutionSlot' gefunden.");
                     break;
             }
 

@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
                     gameObject.transform.position += new Vector3(-1.5f, 0);
                     break;
                 default:
-                    Debug.LogError("Error while walking.");
+                    Debug.LogError("Ein Fehler während des vorwärts gehen ist aufgetreten.");
                     break;
             }
 
