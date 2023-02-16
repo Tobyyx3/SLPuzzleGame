@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 public class InstructionScript : MonoBehaviour
 {
-    private Vector3 DefaultLocation = new Vector3(0, 0, 0);
+    private Vector3 _defaultLocation;
 
     void Start()
-    {            
+    {
+        _defaultLocation = transform.position;
     }
 
     void Update()
     {
         if (transform.parent.name != "BtRepeatLoop")
         {
-            transform.localPosition = DefaultLocation;
+            transform.position = _defaultLocation;
             gameObject.GetComponent<Button>().interactable = true;
         }
     }

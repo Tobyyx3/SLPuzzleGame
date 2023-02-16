@@ -15,7 +15,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         DraggedItem.raycastTarget = false;
-        //DraggedItem.GetComponent<TMP_Text>().raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -29,6 +28,5 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         Debug.Log("End Drag");
         transform.SetParent(parentAfterDrag);
         DraggedItem.raycastTarget = true;
-        //DraggedItem.GetComponent<TMP_Text>().raycastTarget = true;
     }
 }

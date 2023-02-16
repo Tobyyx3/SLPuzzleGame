@@ -34,10 +34,10 @@ public class PlayerController : MonoBehaviour
 
     public void Walk(Int32 repititions)
     {
-        StartCoroutine(ChooseDirection(repititions));
+        StartCoroutine(DelayWalk(repititions));
     }
 
-    private IEnumerator ChooseDirection(Int32 repititions)
+    private IEnumerator DelayWalk(Int32 repititions)
     {
         for (int i = 0; i < repititions; i++)
         {

@@ -10,6 +10,6 @@ public class Slot : MonoBehaviour, IDropHandler
         GameObject dropped = eventData.pointerDrag;
         DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
         draggableItem.parentAfterDrag = transform;
-        Debug.Log("dopped");
+        Debug.Log("dropped");
     }
 }
