@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -32,8 +31,8 @@ public class ExecuteInstructionsScript : MonoBehaviour
                     _programmingManager.Rotate(instruction.GetComponentInChildren<TMP_Dropdown>());
                     break;
                 case String c when c.Contains("RepeatLoopItem"):
-                    // TODO: Anweisung unter GameObj andocken und hier auswerten, statt alles darunter auszuwerten
-                    RepeatLoop(instruction.GetComponentInChildren<TMP_InputField>(), instruction.GetComponentInChildren<TMP_Dropdown>());
+                    RepeatLoop(instruction);
+                    //TODO: delay einbauen
                     yield break;
                 default:
                     Debug.LogError("Keine gültige Anweisung in 'ExecutionSlot' gefunden.");
@@ -44,8 +43,10 @@ public class ExecuteInstructionsScript : MonoBehaviour
         }
     }
 
-    private void RepeatLoop(TMP_InputField inputField, TMP_Dropdown dropdown)
+    private void RepeatLoop(Transform instruction)
     {
+        var repititions = Convert.ToInt32(instruction.GetComponentInChildren<TMP_InputField>().text);
+
         List<Transform> instructionsList = new List<Transform>();
 
         foreach (Transform execution in ExecutionSlot)
@@ -60,16 +61,13 @@ public class ExecuteInstructionsScript : MonoBehaviour
             switch (instructionsList[i].ToString())
             {
                 case String a when a.Contains("WalkItem"):
-                    if (inputField != null)
-                    {
-                        _programmingManager.Walk(Convert.ToInt32(inputField.text));
-                    }
+
+                    _programmingManager.Walk(repititions);
                     break;
                 case String b when b.Contains("RotateItem"):
-                    if (dropdown != null)
-                    {
-                        _programmingManager.Rotate(dropdown);
-                    }
+                    var rotateDropdown = instructionsList[i].GetComponentInChildren<TMP_Dropdown>();
+
+                    _programmingManager.Rotate(rotateDropdown, repititions);
                     break;
                 default:
                     break;

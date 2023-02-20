@@ -37,9 +37,16 @@ public class ProgrammingManager : MonoBehaviour
         }
     }
 
-    private void Rotate(PlayerController.Rotation rotation, Int32 repetitions)
+    public void Rotate(TMP_Dropdown tmpDropdown, Int32 repetitions)
     {
-        _playerController.Rotate(rotation, repetitions);
+        if (tmpDropdown.value == 0)
+        {
+            _playerController.Rotate(PlayerController.Rotation.Right, repetitions);
+        }
+        else
+        {
+            _playerController.Rotate(PlayerController.Rotation.Left, repetitions);
+        }
     }
 
     public void RepeatLoop()
@@ -71,11 +78,11 @@ public class ProgrammingManager : MonoBehaviour
 
         if (tmpDropdown.value == 0)
         {
-            Rotate(PlayerController.Rotation.Right, repetitions);
+            _playerController.Rotate(PlayerController.Rotation.Right, repetitions);
         }
         else
         {
-            Rotate(PlayerController.Rotation.Left, repetitions);
+            _playerController.Rotate(PlayerController.Rotation.Left, repetitions);
         }
     }
 
