@@ -20,7 +20,7 @@ public class ProgrammingManager : MonoBehaviour
         _playerController.Walk(1);
     }
 
-    private void Walk(Int32 repetitions)
+    public void Walk(Int32 repetitions)
     {
         _playerController.Walk(repetitions);
     }
